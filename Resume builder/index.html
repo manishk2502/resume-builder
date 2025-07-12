@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeCraft | Interactive Resume Builder</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+    <header class="app-header">
+        <div class="logo">
+            <i class="fas fa-file-alt"></i>
+            <h1>ResumeCraft</h1>
+        </div>
+        <nav class="main-nav">
+            <button class="nav-btn active"><i class="fas fa-user-edit"></i> Build</button>
+            <button class="nav-btn"><i class="fas fa-download"></i> Export</button>
+        </nav>
+    </header>
+
+    <main class="builder-container">
+        <!-- Form Section -->
+        <section class="form-section">
+            <div class="form-tabs">
+                <button class="tab-btn active" data-tab="personal"><i class="fas fa-user"></i> Personal</button>
+                <button class="tab-btn" data-tab="experience"><i class="fas fa-briefcase"></i> Experience</button>
+                <button class="tab-btn" data-tab="education"><i class="fas fa-graduation-cap"></i> Education</button>
+                <button class="tab-btn" data-tab="skills"><i class="fas fa-star"></i> Skills</button>
+                <button class="tab-btn" data-tab="projects"><i class="fas fa-code"></i> Projects</button>
+            </div>
+
+            <div class="tab-content active" id="personal-tab">
+                <h2 class="form-heading">Personal Information</h2>
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" placeholder="John Doe" class="modern-input" value="Rahul Sharma">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="john@example.com" class="modern-input" value="rahul.sharma@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" placeholder="(123) 456-7890" class="modern-input" value="9876543210">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" id="address" placeholder="123 Main St, City" class="modern-input" value="123 Main St, Mumbai, Maharashtra">
+                </div>
+                <div class="form-group">
+                    <label for="summary">Professional Summary</label>
+                    <textarea id="summary" class="modern-input" placeholder="Brief description of your professional background">Frontend developer with 2+ years of experience building responsive web applications.</textarea>
+                </div>
+            </div>
+
+            <div class="tab-content" id="experience-tab">
+                <h2 class="form-heading">Work Experience</h2>
+                <div class="form-group">
+                    <label for="jobTitle">Job Title</label>
+                    <input type="text" id="jobTitle" placeholder="Software Developer" class="modern-input" value="Frontend Developer">
+                </div>
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" id="company" placeholder="Tech Corp Inc." class="modern-input" value="Tech Solutions Inc.">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                        <input type="text" id="startDate" placeholder="MM/YYYY" class="modern-input" value="06/2022">
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date</label>
+                        <input type="text" id="endDate" placeholder="MM/YYYY or Present" class="modern-input" value="Present">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="jobDescription">Description</label>
+                    <textarea id="jobDescription" class="modern-input" placeholder="Describe your responsibilities and achievements">Developed responsive web applications using React.js. Collaborated with backend developers to implement APIs. Improved application performance by 30%.</textarea>
+                </div>
+            </div>
+
+            <div class="tab-content" id="education-tab">
+                <h2 class="form-heading">Education</h2>
+                <div class="form-group">
+                    <label for="degree">Degree</label>
+                    <input type="text" id="degree" placeholder="Bachelor of Science" class="modern-input" value="B.Tech in Computer Science">
+                </div>
+                <div class="form-group">
+                    <label for="university">University</label>
+                    <input type="text" id="university" placeholder="State University" class="modern-input" value="Mumbai University">
+                </div>
+                <div class="form-group">
+                    <label for="graduationYear">Graduation Year</label>
+                    <input type="text" id="graduationYear" placeholder="YYYY" class="modern-input" value="2021">
+                </div>
+            </div>
+
+            <div class="tab-content" id="skills-tab">
+                <h2 class="form-heading">Skills</h2>
+                <div class="form-group">
+                    <label for="skills">Your Skills (comma separated)</label>
+                    <textarea id="skills" class="modern-input" placeholder="JavaScript, HTML, CSS, React...">HTML5, CSS3, JavaScript, React, Node.js, Git</textarea>
+                </div>
+            </div>
+
+            <div class="tab-content" id="projects-tab">
+                <h2 class="form-heading">Projects</h2>
+                <div class="form-group">
+                    <label for="projectTitle">Project Title</label>
+                    <input type="text" id="projectTitle" placeholder="Project Name" class="modern-input" value="Resume Builder App">
+                </div>
+                <div class="form-group">
+                    <label for="projectDescription">Description</label>
+                    <textarea id="projectDescription" class="modern-input" placeholder="Describe your project">Built an interactive resume builder with real-time preview and PDF export functionality using HTML, CSS, and JavaScript.</textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preview Section -->
+        <section class="preview-section">
+            <h2>Resume Preview</h2>
+            <div class="resume-paper" id="resumePreview">
+                <div class="resume-header">
+                    <h1 class="resume-name">Rahul Sharma</h1>
+                    <div class="resume-contact">
+                        <span class="resume-email">rahul.sharma@example.com</span> • 
+                        <span class="resume-phone">9876543210</span> • 
+                        <span class="resume-address">Mumbai, Maharashtra</span>
+                    </div>
+                </div>
+                <div class="resume-content">
+                    <div class="resume-section">
+                        <h2>Professional Summary</h2>
+                        <p class="resume-summary">Frontend developer with 2+ years of experience building responsive web applications.</p>
+                    </div>
+                    <div class="resume-section">
+                        <h2>Work Experience</h2>
+                        <div class="experience-item">
+                            <h3 class="job-title">Frontend Developer</h3>
+                            <p class="company">Tech Solutions Inc.</p>
+                            <p class="duration">June 2022 - Present</p>
+                            <p class="job-description">Developed responsive web applications using React.js. Collaborated with backend developers to implement APIs. Improved application performance by 30%.</p>
+                        </div>
+                    </div>
+                    <div class="resume-section">
+                        <h2>Education</h2>
+                        <div class="education-item">
+                            <h3 class="degree">B.Tech in Computer Science</h3>
+                            <p class="university">Mumbai University</p>
+                            <p class="graduation-year">2021</p>
+                        </div>
+                    </div>
+                    <div class="resume-section">
+                        <h2>Skills</h2>
+                        <ul class="skills-list">
+                            <li>HTML5</li>
+                            <li>CSS3</li>
+                            <li>JavaScript</li>
+                            <li>React</li>
+                            <li>Node.js</li>
+                            <li>Git</li>
+                        </ul>
+                    </div>
+                    <div class="resume-section">
+                        <h2>Projects</h2>
+                        <div class="project-item">
+                            <h3 class="project-title">Resume Builder App</h3>
+                            <p class="project-description">Built an interactive resume builder with real-time preview and PDF export functionality using HTML, CSS, and JavaScript.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <button class="export-btn primary-btn">
+            <i class="fas fa-file-pdf"></i> Export as PDF
+        </button>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
